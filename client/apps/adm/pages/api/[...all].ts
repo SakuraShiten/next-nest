@@ -3,7 +3,7 @@ import type {NextApiRequest, NextApiResponse} from "next";
 
 //@ts-ignore
 const proxyMiddleware = createProxyMiddleware<NextApiRequest, NextApiResponse>({
-    target: 'https://7a3a-89-110-65-173.ngrok-free.app',
+    target: 'https://rnfsj-89-110-65-173.a.free.pinggy.link',
     changeOrigin: true,
 
     pathRewrite: {
@@ -11,6 +11,7 @@ const proxyMiddleware = createProxyMiddleware<NextApiRequest, NextApiResponse>({
     },
     onProxyReq: (proxyReq, req: NextApiRequest, res: NextApiResponse) => {
         const token = req.cookies['token']
+        proxyReq.setHeader('X-Pinggy-No-Screen', `true`)
         if (token) {
             proxyReq.setHeader('Authorization', `${token}`)
         }
