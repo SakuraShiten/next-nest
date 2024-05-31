@@ -18,7 +18,7 @@ RUN corepack enable pnpm && pnpm run build
 FROM base AS runner
 WORKDIR /app
 
-COPY --from=builder /app/public ./public
+#COPY --from=builder /app/public ./public
 
 RUN mkdir .next
 RUN chown nextjs:nodejs .next
