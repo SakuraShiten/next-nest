@@ -19,7 +19,7 @@ COPY . .
 #RUN cat /app/.env
 
 # Устанавливаем зависимости
-RUN pnpm i
+RUN npm i -g pnpm && pnpm i
 
 # Запускаем сборку проекта
 RUN pnpm run build
