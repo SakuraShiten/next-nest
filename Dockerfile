@@ -1,46 +1,33 @@
-# Используем образ Node.js 18 на базе Alpine Linux для сборки приложения
-FROM node:18-alpine AS build
+FROM node:20-alpine AS base
 
-# Устанавливаем рабочую директорию в /app
+FROM base AS deps
+RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-# Принимаем аргумент сборки ENV_FILE, устанавливаем значение по умолчанию, если аргумент не предоставлен
-#ARG ENV_FILE=.env.production
+COPY package.json pnpm-lock.yaml* ./
+RUN corepack enable pnpm && pnpm i --frozen-lockfile;
 
-# Копируем все файлы из текущей директории на хост-машине в рабочую директорию в контейнере
+
+FROM base AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Копируем выбранный файл с переменными окружения в .env
-#COPY $ENV_FILE .env
-#RUN cat /app/.env.production
+RUN corepack enable pnpm && pnpm run build;
 
-#RUN cp .env .env.production
-
-#RUN cat /app/.env
-
-# Устанавливаем зависимости
-RUN npm i -g pnpm && pnpm i
-
-# Запускаем сборку проекта
-RUN pnpm run build
-
-# Создаем новый этап для запуска приложения
-FROM node:18-alpine AS runtime
-
-# Устанавливаем рабочую директорию в /app
+FROM base AS runner
 WORKDIR /app
 
-# Копируем собранные файлы из этапа сборки
-COPY --from=build /.next /app/.next
-COPY --from=build /node_modules /app/node_modules
-#COPY --from=build /app/.env /app/.env
-#COPY --from=build /app/public /app/public
-COPY --from=build /package.json /app/package.json
-COPY --from=build /pnpm-lock.yaml /app/pnpm-lock.yaml
+COPY --from=builder /app/public ./public
 
-# Если вашему приложению нужны дополнительные зависимости для выполнения,
-# их можно установить здесь, например:
-# RUN npm install express
+RUN mkdir .next
+RUN chown nextjs:nodejs .next
 
-# Задаем команду, которая будет выполнена при запуске контейнера
-CMD ["pnpm", "start"]
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+USER nextjs
+
+EXPOSE 3000
+
+CMD HOSTNAME="0.0.0.0" node server.js
