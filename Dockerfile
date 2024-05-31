@@ -31,12 +31,12 @@ FROM node:18-alpine AS runtime
 WORKDIR /app
 
 # Копируем собранные файлы из этапа сборки
-COPY --from=build /app/.next /app/.next
-COPY --from=build /app/node_modules /app/node_modules
+COPY --from=build /.next /app/.next
+COPY --from=build /node_modules /app/node_modules
 #COPY --from=build /app/.env /app/.env
 #COPY --from=build /app/public /app/public
-COPY --from=build /app/package.json /app/package.json
-COPY --from=build /app/pnpm-lock.yaml /app/pnpm-lock.yaml
+COPY --from=build /package.json /app/package.json
+COPY --from=build /pnpm-lock.yaml /app/pnpm-lock.yaml
 
 # Если вашему приложению нужны дополнительные зависимости для выполнения,
 # их можно установить здесь, например:
