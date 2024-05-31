@@ -18,6 +18,7 @@ RUN corepack enable pnpm && pnpm run build
 FROM base AS runner
 WORKDIR /app
 
+ENV NEXT_TELEMETRY_DISABLED 1
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
