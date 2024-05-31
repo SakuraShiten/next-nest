@@ -5,13 +5,13 @@ FROM node:18 as build
 WORKDIR /app
 
 # Копируйте файлы package.json и pnpm-lock.yaml в рабочую директорию
-COPY package.json pnpm-lock.yaml ./
+COPY client/package.json pnpm-lock.yaml ./
 
 # Установите зависимости проекта
 RUN npm install -g pnpm && pnpm install
 
 # Копируйте остальные файлы проекта в рабочую директорию
-COPY . .
+COPY client .
 
 # Соберите проект
 RUN pnpm run build
