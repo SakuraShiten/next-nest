@@ -5,6 +5,7 @@ import type {NextApiRequest, NextApiResponse} from "next";
 const proxyMiddleware = createProxyMiddleware<NextApiRequest, NextApiResponse>({
     target: 'https://7a3a-89-110-65-173.ngrok-free.app',
     changeOrigin: true,
+
     pathRewrite: {
         '^/api/': '/api/',
     },
