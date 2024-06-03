@@ -33,4 +33,4 @@ jobs:
 
     - name: Deploy to Server
       run: |
-        ssh -o StrictHostKeyChecking=no kopolartec.artem@gmail.com "docker pull user/app:latest && docker run -d -p 80:3000 user/app:latest"
+        ssh -o StrictHostKeyChecking=no kopolartec.artem@gmail.com "docker pull sakurashiten/app:latest && docker run -d -p 80:3000 sakurashiten/app:latest"
