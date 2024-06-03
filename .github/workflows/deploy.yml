@@ -24,7 +24,7 @@ jobs:
       with:
         context: .
         push: true
-        tags: user/app:latest
+        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_USERNAME }}:latest
 
     - name: Setup SSH
       uses: webfactory/ssh-agent@v0.5.3
@@ -33,4 +33,4 @@ jobs:
 
     - name: Deploy to Server
       run: |
-        ssh -o StrictHostKeyChecking=no kopolartec.artem@gmail.com "docker pull sakurashiten/app:latest && docker run -d -p 80:3000 sakurashiten/app:latest"
+        ssh -o StrictHostKeyChecking=no kopolartec.artem@gmail.com "docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_USERNAME }}:latest && docker run -d -p 80:3000 ${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_USERNAME }}:latest"
