@@ -15,7 +15,7 @@ function Page() {
         await setToken(token)
         push('/')
     }
-
+console.log('a')
     return (
         <FormMutation
             hook={useUsersAuth}
