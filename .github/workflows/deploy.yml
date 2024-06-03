@@ -40,7 +40,9 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            set -e
             docker pull ${{ secrets.DOCKER_HUB_USERNAME}}/sakurashiten:latest
             docker stop sakurashiten || true
             docker rm sakurashiten || true
             docker run -d -p 80:80 --name sakurashiten ${{ secrets.DOCKER_HUB_USERNAME}}/sakurashiten:latest
+            docker image prune -f
