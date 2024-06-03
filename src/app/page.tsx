@@ -2,7 +2,7 @@
 export default function Home() {
     return (
         <div>
-            v 1.0.2
+            v 1.0.3
         </div>
     );
 }
