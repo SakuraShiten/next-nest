@@ -37,6 +37,8 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: '.'
+          passphrase: ''
+          port: '22'
           script: |
             set -e
             docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/sakurashiten:latest
