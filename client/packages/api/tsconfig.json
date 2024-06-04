@@ -1,0 +1,14 @@
+{
+  "type": "module",
+  "compilerOptions": {
+    "lib": [
+      "es2022",
+      "DOM",
+      "DOM.Iterable"
+    ]
+  },
+  "exclude": [
+    "src",
+    "node_modules"
+  ]
+}
