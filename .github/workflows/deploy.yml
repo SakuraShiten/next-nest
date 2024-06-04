@@ -44,5 +44,5 @@ jobs:
             docker pull ${{ secrets.DOCKER_HUB_USERNAME}}/sakurashiten:latest
             docker stop sakurashiten || true
             docker rm sakurashiten || true
-            docker run -d -p 80:80 --name sakurashiten ${{ secrets.DOCKER_HUB_USERNAME}}/sakurashiten:latest
+            docker run -d -p 3000:3000 --name sakurashiten ${{ secrets.DOCKER_HUB_USERNAME}}/sakurashiten:latest
             docker image prune -f
