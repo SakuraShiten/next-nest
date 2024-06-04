@@ -28,7 +28,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/sakurashiten:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/sakurashiten:${{ github.sha }}
 
       - name: Deploy 🚀
         uses: appleboy/ssh-action@master
@@ -44,5 +44,5 @@ jobs:
             docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/sakurashiten:${{ github.sha }}
             docker stop sakurashiten || true
             docker rm sakurashiten || true
-            docker run -d -p 3000:3000 --name sakurashiten ${{ secrets.DOCKER_HUB_USERNAME }}/sakurashiten:latest
+            docker run -d -p 3000:3000 --name sakurashiten ${{ secrets.DOCKER_HUB_USERNAME }}/sakurashiten:${{ github.sha }}
             docker image prune -f
