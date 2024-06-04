@@ -1,5 +1,5 @@
 import {CallHandler, ExecutionContext, Injectable, NestInterceptor} from "@nestjs/common";
-import {catchError, tap, throwError} from "rxjs";
+import {catchError, tap} from "rxjs";
 import {DataSource} from "typeorm";
 
 @Injectable()
@@ -10,7 +10,6 @@ export class TransactionInterceptor implements NestInterceptor {
     }
 
     async intercept(context: ExecutionContext, next: CallHandler) {
-        console.log('Начало транзакции');
         const request = context.switchToHttp().getRequest().raw
         const queryRunner = this.dataSource.createQueryRunner()
         await queryRunner.connect()
@@ -21,15 +20,13 @@ export class TransactionInterceptor implements NestInterceptor {
             .handle()
             .pipe(
                 tap(async () => {
-                    console.log(`Конец транзакции`)
                     await queryRunner.commitTransaction()
                     await queryRunner.release()
                 }),
                 catchError(async (err) => {
-                    console.log('Ошибка транзакции')
                     await queryRunner.rollbackTransaction()
                     await queryRunner.release()
-                    return throwError(() => err)
+                    throw err
                 })
             );
     }

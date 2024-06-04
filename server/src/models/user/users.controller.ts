@@ -7,6 +7,9 @@ import {UserRolesArray, UserRolesTypes} from "@/common/types/types";
 import {ApiBadRequestResponseZod} from "@/common/decorators/apiBadRequestResponseZod.decorator";
 import {RequestZod} from "@/common/decorators/requestZod.decorator";
 import {ResponseZod} from "@/common/decorators/responseZod.decorator";
+import {Transaction} from "@/common/decorators/transaction.decorator";
+import {TransactionBody} from "@/common/decorators/transactionBody.decorator";
+import {EntityManager} from "typeorm";
 
 @ApiTags('Users')
 @Controller('users')
@@ -16,9 +19,13 @@ export class UsersController {
 
     @Post('/registration')
     @RequestZod(UsersCreateSchema)
+    @Transaction()
     @ResponseZod(UsersCreateResSchema)
-    async registration(@Body() user: UsersCreateDto) {
-        const newUser = await this.usersService.create(user)
+    async registration(
+        @Body() user: UsersCreateDto,
+        @TransactionBody() transaction: EntityManager
+    ) {
+        const newUser = await this.usersService.create({user, transaction})
         return {token: newUser}
     }
 

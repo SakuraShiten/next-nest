@@ -1,6 +1,6 @@
 import {InjectRepository} from "@nestjs/typeorm";
 import {HttpException, Injectable} from "@nestjs/common";
-import {Repository} from "typeorm";
+import {EntityManager, Repository} from "typeorm";
 import {Elements} from "./models/elements.model";
 import {Texts} from "./models/texts.model";
 import {Headers} from "./models/headers.model";
@@ -19,32 +19,29 @@ export class ElementsService {
     }
 
     async createHeader({pageId, element}: { pageId: number, element: ElementCreateDto }) {
-        const header = await this.headersRepository.save({
-            header: element.header, pageId
-        })
-        return header.id
+        return (await this.headersRepository.save({header: element.header, pageId})).id
     }
 
     async createText({pageId, element}: { pageId: number, element: ElementCreateDto }) {
-        const text = await this.textsRepository.save({
-            text: element.text, pageId
-        })
-        return text.id
+        return (await this.textsRepository.save({text: element.text, pageId})).id
     }
 
-    async create({pageId, element}: { pageId: number, element: ElementCreateDto }) {
-        const lastPosition = (await this.elementsRepository.findOne({
-            where: {page: {id: pageId}}, order: {position: 'DESC'}
+    async create({pageId, element, transaction}: {
+        pageId: number, element: ElementCreateDto, transaction: EntityManager
+    }) {
+        const lastPosition = (await transaction.findOne(Elements, {
+            where: {page: {id: pageId}}, order: {position: 'DESC'}, lock: {mode: 'dirty_read'}
         }))?.position
+        const newPosition = lastPosition !== undefined ? lastPosition + 1 : 0
 
-        let itemId: number = 0
+        let itemId: number | null = null
         if (element.type === 'header') itemId = await this.createHeader({pageId, element})
         if (element.type === 'text') itemId = await this.createText({pageId, element})
-        const newElement = await this.elementsRepository.save({
-            type: element.type, itemId, page: {id: pageId},
-            position: lastPosition !== undefined ? lastPosition + 1 : 0
+        if (!itemId) throw new HttpException('Не удалось создать элемент', 400)
+
+        return await this.elementsRepository.save({
+            type: element.type, itemId, page: {id: pageId}, position: newPosition
         })
-        return newElement.id
     }
 
     async isExist({pageId, elementId}: { pageId: number, elementId: number }) {
@@ -66,7 +63,7 @@ export class ElementsService {
             where: {page: {id: pageId}}, order: {position: 'ASC'}
         })
         const elementsList: ElementsResDto = []
-        for (let element of elements) {
+        for (const element of elements) {
             if (element.type === 'header') {
                 const header = await this.headersRepository.findOneBy({id: element.itemId})
                 if (!header) continue

@@ -1,6 +1,6 @@
 import {InjectRepository} from "@nestjs/typeorm";
 import {Pages} from "./models/pages.model";
-import {DataSource, Repository} from "typeorm";
+import {EntityManager, FindOptionsWhere, Repository} from "typeorm";
 import {HttpException, Injectable} from "@nestjs/common";
 import {PagesCreateDto} from "./dto/pages.dto";
 import {ElementsService} from "@/models/elements/elements.service";
@@ -11,21 +11,27 @@ export class PagesService {
         @InjectRepository(Pages)
         private readonly pagesRepository: Repository<Pages>,
         private readonly elementsService: ElementsService,
-        private readonly dataSource: DataSource
     ) {
     }
 
     pagesLimit = 100
 
-    async isUnique({page, userId}: { page: PagesCreateDto, userId: number }) {
-        const candidateTitle = await this.pagesRepository.findOne({
-            where: {title: page.title, user: {id: userId}}
-        })
-        if (candidateTitle) throw new HttpException(`Страница с заголовком "${page.title}" существует`, 400)
-        const candidateUrl = await this.pagesRepository.findOne({
-            where: {url: page.url, user: {id: userId}}
-        })
-        if (candidateUrl) throw new HttpException(`Страница c url "${page.url}" существует`, 400)
+    async isUnique({page, userId, transaction}: {
+        page: PagesCreateDto, userId: number, transaction?: EntityManager
+    }) {
+        const pagesWhere: FindOptionsWhere<Pages>[] = [
+            {url: page.url, user: {id: userId}},
+            {title: page.title, user: {id: userId}}
+        ]
+
+        const candidate = transaction
+            ? await transaction.findOne(Pages, {where: pagesWhere, lock: {mode: 'dirty_read'}})
+            : await this.pagesRepository.findOne({where: pagesWhere})
+
+        if (candidate?.title === page.title)
+            throw new HttpException(`Страница с заголовком "${page.title}" существует`, 400)
+        if (candidate?.url === page.url)
+            throw new HttpException(`Страница c url "${page.url}" существует`, 400)
     }
 
     async isExist(id: number) {
@@ -52,11 +58,13 @@ export class PagesService {
         if (!candidate) throw new HttpException(`Страница с id "${pageId}" не найдена`, 400)
     }
 
-    async create({page, userId}: { page: PagesCreateDto, userId: number }) {
-        await this.isUnique({page, userId})
-        return (await this.pagesRepository.save({
+    async create({page, userId, transaction}: {
+        page: PagesCreateDto, userId: number, transaction: EntityManager
+    }) {
+        await this.isUnique({page, userId, transaction})
+        return await transaction.save(Pages, {
             ...page, user: {id: userId}
-        })).id
+        })
     }
 
     async findByUrl({userLogin, pageUrl}: { userLogin: string, pageUrl: string }) {

@@ -2,7 +2,7 @@ import {ForbiddenException, HttpException, Injectable} from "@nestjs/common";
 import * as bcrypt from 'bcrypt';
 import {InjectRepository} from "@nestjs/typeorm";
 import {Users} from "@/models/user/models/user.model";
-import {Repository} from "typeorm";
+import {EntityManager, Repository} from "typeorm";
 import {Roles} from "@/models/user/models/role.model";
 import {JwtService} from "@nestjs/jwt";
 import {UsersCreateDto} from "@/models/user/dto/users.dto";
@@ -23,11 +23,13 @@ export class UsersService {
         return await this.jwtService.signAsync(payload)
     }
 
-    async create(user: UsersCreateDto) {
-        const candidate = await this.usersRepository.findOne({where: {login: user.login}})
+    async create({user, transaction}: { user: UsersCreateDto, transaction: EntityManager }) {
+        const candidate = await transaction.findOne(Users, {
+            where: {login: user.login}, lock: {mode: 'pessimistic_write'}
+        })
         if (candidate) throw new HttpException('Пользователь с таким логином уже существует', 400)
         const hash = await bcrypt.hash(user.password, 1)
-        const newUser = await this.usersRepository.save({
+        const newUser = await transaction.save(Users, {
             ...user, password: hash, roles: [{role: 'USER'}]
         })
         return await this.generateJwt({payload: {id: newUser.id}})

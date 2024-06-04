@@ -14,6 +14,9 @@ import {ResponseZod} from "@/common/decorators/responseZod.decorator";
 import {User, UserType} from "@/common/decorators/user.decorator";
 import {PagesService} from "@/models/pages/pages.service";
 import {ElementsService} from "@/models/elements/elements.service";
+import {Transaction} from "@/common/decorators/transaction.decorator";
+import {TransactionBody} from "@/common/decorators/transactionBody.decorator";
+import {EntityManager} from "typeorm";
 
 @Controller('pages/:pageId/elements')
 @ApiTags('Page Elements')
@@ -27,15 +30,19 @@ export class PageElementsController {
 
     @Post()
     @RequestZod(ElementCreateSchema)
+    @Transaction()
     @ResponseZod(ElementCreateResSchema)
     async create(
         @Param('pageId', new ParseIntPipe()) pageId: number,
         @Body() element: ElementCreateDto,
-        @User() {id: userId}: UserType
+        @User() {id: userId}: UserType,
+        @TransactionBody() transaction: EntityManager
     ) {
         await this.pagesService.isOwner({pageId, userId})
-        const elementId = await this.pageElementsService.create({pageId, element})
-        return {id: elementId}
+        return await this.pageElementsService.create({
+            pageId, element, transaction
+        })
+
     }
 
     @Delete(':elementId')

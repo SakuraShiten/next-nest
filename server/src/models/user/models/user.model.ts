@@ -1,7 +1,6 @@
 import {Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn} from "typeorm";
 import {ApiProperty} from "@nestjs/swagger";
 import {Roles} from "@/models/user/models/role.model";
-import {Elements} from "@/models/elements/models/elements.model";
 import {Pages} from "@/models/pages/models/pages.model";
 
 @Entity()

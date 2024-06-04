@@ -1,5 +1,5 @@
 import {ApiOkResponse, ApiParam, ApiQuery, ApiTags} from "@nestjs/swagger";
-import {Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query, UseInterceptors} from "@nestjs/common";
+import {Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query} from "@nestjs/common";
 import {PagesService} from "./pages.service";
 import {
     PageElementsResSchema,
@@ -13,9 +13,9 @@ import {ApiBadRequestResponseZod} from "@/common/decorators/apiBadRequestRespons
 import {User, UserType} from "@/common/decorators/user.decorator";
 import {ResponseZod} from "@/common/decorators/responseZod.decorator";
 import {RequestZod} from "@/common/decorators/requestZod.decorator";
-import {UseTransaction} from "@/common/decorators/useTransaction.decorator";
 import {Transaction} from "@/common/decorators/transaction.decorator";
-import {QueryRunner} from "typeorm";
+import {TransactionBody} from "@/common/decorators/transactionBody.decorator";
+import {EntityManager} from "typeorm";
 
 @ApiTags('Pages')
 @Controller('pages')
@@ -42,13 +42,14 @@ export class PagesController {
 
     @Post()
     @RequestZod(PagesCreateSchema)
+    @Transaction()
     @ResponseZod(PagesCreateResSchema)
     async create(
         @Body() page: PagesCreateDto,
         @User() {id: userId}: UserType,
+        @TransactionBody() transaction: EntityManager
     ) {
-        const newPage = await this.pagesService.create({page, userId})
-        return {id: newPage}
+        return await this.pagesService.create({page, userId, transaction})
     }
 
     @Get('/:userLogin/:pageUrl')

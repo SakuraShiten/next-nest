@@ -1,18 +1,19 @@
 import {Injectable} from "@nestjs/common";
 import {ElementsService} from "@/models/elements/elements.service";
 import {ElementCreateDto} from "@/models/pageElements/dto/elements.dto";
-import {DataSource} from "typeorm";
+import {EntityManager} from "typeorm";
 
 @Injectable()
 export class PageElementsService {
     constructor(
         private readonly elementsService: ElementsService,
-        private readonly dataSource: DataSource
     ) {
     }
 
-    async create({pageId, element}: { pageId: number, element: ElementCreateDto }) {
-        return await this.elementsService.create({pageId, element})
+    async create({pageId, element, transaction}: {
+        pageId: number, element: ElementCreateDto, transaction: EntityManager
+    }) {
+        return await this.elementsService.create({pageId, element, transaction})
     }
 
     async delete({pageId, elementId}: { pageId: number, elementId: number }) {
@@ -21,7 +22,6 @@ export class PageElementsService {
     }
 
     async get({pageId}: { pageId: number }) {
-        const elements = await this.elementsService.get({pageId})
-        return elements
+        return await this.elementsService.get({pageId})
     }
 }
