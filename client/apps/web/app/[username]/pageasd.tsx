@@ -5,10 +5,11 @@ import {fetchBase} from "../shared/components/widgets/fetchBase";
 import Link from "next/link";
 
 const getData = async (slug: string) => {
+    console.log(slug)
     try {
-        return await fetchBase(pagesFindOne, {
-            params: slug
-        })
+        // return await fetchBase(pagesFindOne,{
+        //     params:
+        // })
     } catch (e) {
         return null
     }
@@ -17,14 +18,15 @@ const getData = async (slug: string) => {
 type PageProps = { params: { slug: string[] } }
 
 export async function generateMetadata({params: {slug}}: PageProps) {
-    if (!slug[0]) return {}
-    const data = await getData(slug[0])
+    if (!slug.length) return notFound()
+    console.log(slug)
+    const data = await getData(slug)
     return {
         title: data?.title
     }
 }
 
-export default async function Page({params: {slug}}: PageProps) {
+export default async function Pageasd({params: {slug}}: PageProps) {
     if (!slug[0]) notFound()
     const data = await getData(slug[0])
     return (

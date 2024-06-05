@@ -1,14 +1,14 @@
 import ky, {HTTPError} from "ky";
 import type {Options} from "ky";
 
-export type ResponseConfig<TData = unknown> = {
+export type ResponseConfig<TData> = {
     data: TData;
     status: number;
     statusText: string;
     headers?: Headers;
 };
 
-export type RequestConfig<TData = unknown> = {
+export type RequestConfig<TData> = {
     url?: string;
     baseUrl?: string;
     method: "get" | "put" | "patch" | "post" | "delete";
@@ -24,7 +24,7 @@ export type RequestConfig<TData = unknown> = {
     signal?: AbortSignal;
     headers?: Options["headers"];
     cache?: Options["cache"];
-    next?: Options["next"];
+    next?: { revalidate?: number | false; tags?: string[] } | undefined
 };
 
 export const kyClient = async <
@@ -41,7 +41,8 @@ export const kyClient = async <
             headers: config.headers,
             signal: config.signal,
             cache: config?.cache || 'no-store',
-            next: config.next,
+            // @ts-ignore
+            next: config?.next,
         })
         const data: TData = await res.json()
         return {

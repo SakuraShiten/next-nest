@@ -1,0 +1,16 @@
+{
+  "name": "@repo/zod",
+  "version": "0.0.0",
+  "scripts": {
+    "build": "tsc"
+  },
+  "main": "dist",
+  "types": "dist/index.d.ts",
+  "description": "",
+  "dependencies": {
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  }
+}
