@@ -22,12 +22,10 @@ function Page() {
             schema={UserAuthSchema}
             btnText={'Войти'}
             hookOptions={{
-                onSuccess:({token}) => onSuccess(token)
+                onSuccess: ({token}) => onSuccess(token)
             }}
         >
-            <InputControlLogin
-
-            />
+            <InputControlLogin/>
             <InputControlPassword/>
         </FormMutation>
     )

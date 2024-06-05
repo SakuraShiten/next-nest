@@ -12,7 +12,6 @@ import {useQueryClient} from "@repo/api/react-query";
 import {useState} from "react";
 import ElementTextCreate from "../../../shared/components/modules/elements/Text/ElementTextCreate";
 import ElementList from "../../../shared/components/modules/elements/ElementList";
-import DndSortList from "../../../shared/components/widgets/dnd/sort/DndSortList";
 
 function Page({params: {pageId}}: { params: { pageId: string } }) {
     const queryClient = useQueryClient()
