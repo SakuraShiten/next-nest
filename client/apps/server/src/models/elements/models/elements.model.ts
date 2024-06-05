@@ -1,7 +1,7 @@
 import {ApiProperty} from "@nestjs/swagger";
 import {Column, CreateDateColumn, Entity, Index, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import {Pages} from "@/models/pages/models/pages.model";
-import {ElementTypes, ElementTypesArray} from "@/common/types/types";
+import {ElementTypes, ElementTypesArray} from "@repo/zod/src/types";
 
 @Entity()
 export class Elements {

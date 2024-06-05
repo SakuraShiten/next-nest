@@ -1,16 +1,15 @@
 import {ApiOkResponse, ApiQuery, ApiTags} from "@nestjs/swagger";
 import {Body, Controller, Get, Post, Query} from "@nestjs/common";
-import {UserResSchema, UsersCreateDto, UsersCreateResSchema} from "@/models/user/dto/users.dto";
 import {UsersService} from "@/models/user/users.service";
 import {User, UserType} from "@/common/decorators/user.decorator";
-import {UserRolesArray, UserRolesTypes} from "@/common/types/types";
 import {ApiBadRequestResponseZod} from "@/common/decorators/apiBadRequestResponseZod.decorator";
 import {RequestZod} from "@/common/decorators/requestZod.decorator";
 import {ResponseZod} from "@/common/decorators/responseZod.decorator";
 import {Transaction} from "@/common/decorators/transaction.decorator";
 import {TransactionBody} from "@/common/decorators/transactionBody.decorator";
 import {EntityManager} from "typeorm";
-import {UsersCreateSchema} from "@repo/zod";
+import {UserResSchema, UsersCreateDto, UsersCreateResSchema, UsersCreateSchema} from "@repo/zod";
+import {UserRolesArray, UserRolesTypes} from "@repo/zod/src/types";
 
 
 @ApiTags('Users')

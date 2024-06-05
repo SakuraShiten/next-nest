@@ -1,7 +1,7 @@
 import {Injectable} from "@nestjs/common";
 import {ElementsService} from "@/models/elements/elements.service";
-import {ElementCreateDto} from "@/models/pageElements/dto/elements.dto";
 import {EntityManager} from "typeorm";
+import {ElementCreateDto} from "@repo/zod/src/pageElements";
 
 @Injectable()
 export class PageElementsService {

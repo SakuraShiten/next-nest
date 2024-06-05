@@ -1,13 +1,6 @@
 import {Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put} from "@nestjs/common";
 import {PageElementsService} from "@/models/pageElements/pageElements.service";
 import {ApiResponse, ApiTags} from "@nestjs/swagger";
-import {
-    ElementCreateDto,
-    ElementCreateResSchema,
-    ElementCreateSchema,
-    ElementsResSchema, ElementUpdatePositionDto,
-    ElementUpdatePositionSchema
-} from "./dto/elements.dto";
 import {ApiBadRequestResponseZod} from "@/common/decorators/apiBadRequestResponseZod.decorator";
 import {RequestZod} from "@/common/decorators/requestZod.decorator";
 import {ResponseZod} from "@/common/decorators/responseZod.decorator";
@@ -17,6 +10,12 @@ import {ElementsService} from "@/models/elements/elements.service";
 import {Transaction} from "@/common/decorators/transaction.decorator";
 import {TransactionBody} from "@/common/decorators/transactionBody.decorator";
 import {EntityManager} from "typeorm";
+import {
+    ElementCreateDto,
+    ElementCreateResSchema,
+    ElementCreateSchema,
+    ElementsResSchema, ElementUpdatePositionDto, ElementUpdatePositionSchema
+} from "@repo/zod/src/pageElements";
 
 @Controller('pages/:pageId/elements')
 @ApiTags('Page Elements')

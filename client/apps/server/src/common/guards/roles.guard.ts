@@ -9,7 +9,7 @@ export class RolesGuard implements CanActivate {
     }
 
     canActivate(context: ExecutionContext): boolean {
-        const roles = this.reflector.get(Roles, context.getHandler())
+        const roles = this.reflector.get(Roles, context.getHandler()) as UserType['roles']
         if (!roles) return true
         const request = context.switchToHttp().getRequest()
         const user = request.raw.user as UserType

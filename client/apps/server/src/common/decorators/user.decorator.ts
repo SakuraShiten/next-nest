@@ -1,5 +1,5 @@
 import {createParamDecorator, ExecutionContext} from "@nestjs/common";
-import {UserRolesTypes} from "@/common/types/types";
+import {UserRolesTypes} from "@repo/zod/src/types";
 
 export type UserType = {
     id: number;

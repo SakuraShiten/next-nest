@@ -2,8 +2,8 @@ import {InjectRepository} from "@nestjs/typeorm";
 import {Pages} from "./models/pages.model";
 import {EntityManager, FindOptionsWhere, Repository} from "typeorm";
 import {HttpException, Injectable} from "@nestjs/common";
-import {PagesCreateDto} from "./dto/pages.dto";
 import {ElementsService} from "@/models/elements/elements.service";
+import {PagesCreateDto} from "@repo/zod/src/pages";
 
 @Injectable()
 export class PagesService {

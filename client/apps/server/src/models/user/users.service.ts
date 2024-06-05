@@ -5,8 +5,8 @@ import {Users} from "@/models/user/models/user.model";
 import {EntityManager, Repository} from "typeorm";
 import {Roles} from "@/models/user/models/role.model";
 import {JwtService} from "@nestjs/jwt";
-import {UsersCreateDto} from "@/models/user/dto/users.dto";
-import {UserRolesTypes} from "@/common/types/types";
+import {UsersCreateDto} from "@repo/zod";
+import {UserRolesTypes} from "@repo/zod/src/types";
 
 @Injectable()
 export class UsersService {

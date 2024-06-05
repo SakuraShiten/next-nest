@@ -1,5 +1,5 @@
 import {z} from "zod";
-import {ElementTypesArray} from "@/common/types/types";
+import {ElementTypesArray} from "./types";
 
 export const ElementCreateSchema = z.object({
     type: z.enum(ElementTypesArray),

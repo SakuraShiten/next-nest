@@ -1,7 +1,7 @@
 import {ApiProperty} from "@nestjs/swagger";
 import {Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
-import {UserRolesArray, UserRolesTypes} from "@/common/types/types";
 import {Users} from "@/models/user/models/user.model";
+import {UserRolesArray, UserRolesTypes} from "@repo/zod/src/types";
 
 @Entity()
 export class Roles {

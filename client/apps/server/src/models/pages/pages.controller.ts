@@ -1,14 +1,7 @@
 import {ApiOkResponse, ApiParam, ApiQuery, ApiTags} from "@nestjs/swagger";
 import {Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query} from "@nestjs/common";
 import {PagesService} from "./pages.service";
-import {
-    PageElementsResSchema,
-    PageResSchema,
-    PagesCreateDto,
-    PagesCreateResSchema,
-    PagesCreateSchema,
-    PagesResSchema
-} from "./dto/pages.dto";
+
 import {ApiBadRequestResponseZod} from "@/common/decorators/apiBadRequestResponseZod.decorator";
 import {User, UserType} from "@/common/decorators/user.decorator";
 import {ResponseZod} from "@/common/decorators/responseZod.decorator";
@@ -16,6 +9,13 @@ import {RequestZod} from "@/common/decorators/requestZod.decorator";
 import {Transaction} from "@/common/decorators/transaction.decorator";
 import {TransactionBody} from "@/common/decorators/transactionBody.decorator";
 import {EntityManager} from "typeorm";
+import {
+    PageElementsResSchema, PageResSchema,
+    PagesCreateDto,
+    PagesCreateResSchema,
+    PagesCreateSchema,
+    PagesResSchema
+} from "@repo/zod/src/pages";
 
 @ApiTags('Pages')
 @Controller('pages')

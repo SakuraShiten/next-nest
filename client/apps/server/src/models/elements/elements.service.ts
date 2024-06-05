@@ -4,7 +4,7 @@ import {EntityManager, Repository} from "typeorm";
 import {Elements} from "./models/elements.model";
 import {Texts} from "./models/texts.model";
 import {Headers} from "./models/headers.model";
-import {ElementCreateDto, ElementsResDto, ElementUpdatePositionDto} from "@/models/pageElements/dto/elements.dto";
+import {ElementCreateDto, ElementsResDto, ElementUpdatePositionDto} from "@repo/zod/src/pageElements";
 
 @Injectable()
 export class ElementsService {
