@@ -6,9 +6,9 @@ import {
     usePageElementsUpdatePosition
 } from "@repo/api";
 import React, {useEffect, useMemo} from "react";
-import {mutatePositive} from "../../../mutatePositive";
 import ElementCard from "./ElementCard";
 import DndSortList from "../../widgets/dnd/sort/DndSortList";
+import {mutatePositive} from "@/features/shared/query/mutatePositive";
 
 function ElementList({pageId}: { pageId: number }) {
     const {data, isSuccess} = usePageElementsGet(pageId)

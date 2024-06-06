@@ -1,7 +1,7 @@
+import React from "react";
 import type {ControllerProps} from "react-hook-form";
 import {Controller, useFormContext} from "react-hook-form";
-import {Input} from "@ui/components/ui/input";
-import React from "react";
+import {Input} from "@repo/ui/components/input";
 
 type InputControlProps = {
     name: ControllerProps['name'],

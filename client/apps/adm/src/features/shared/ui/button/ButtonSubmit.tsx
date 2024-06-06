@@ -1,6 +1,6 @@
-import {Button} from "@ui/components/ui/button";
 import React from "react";
-import {cn} from "@ui/lib/utils";
+import {Button} from "@repo/ui/components/button";
+import {cn} from "@repo/ui/lib/utils";
 
 type ButtonSubmitProps = React.ComponentProps<typeof Button>
 

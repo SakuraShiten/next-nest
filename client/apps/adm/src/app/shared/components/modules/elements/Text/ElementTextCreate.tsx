@@ -1,14 +1,14 @@
 import {FormProvider, useForm} from "react-hook-form";
 import {PageElementsControllerGetQueryResponse, pageElementsGetQueryKey, usePageElementsCreate} from "@repo/api";
-import {mutatePositive} from "../../../../mutatePositive";
 import React, {useMemo, useState} from "react";
-import InputControl from "../../../widgets/inputs/InputControl";
-import ButtonSubmit from "../../../widgets/buttons/ButtonSubmit";
-import {Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger} from "@ui/components/ui/drawer";
-import {Button} from "@ui/components/ui/button";
 import UIForm from "../../../../../../features/shared/ui/flex/UIForm";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
+import {mutatePositive} from "@/features/shared/query/mutatePositive";
+import {Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger} from "@repo/ui/components/drawer";
+import {Button} from "@repo/ui/components/button";
+import InputControl from "@/features/shared/ui/input/InputControl";
+import ButtonSubmit from "@/features/shared/ui/button/ButtonSubmit";
 
 type ElementTextCreateProps = {
     pageId: number

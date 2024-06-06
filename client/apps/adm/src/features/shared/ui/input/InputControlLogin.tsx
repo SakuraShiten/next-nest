@@ -1,4 +1,4 @@
-import InputControl from "./InputControl";
+import InputControl from "@/features/shared/ui/input/InputControl";
 
 function InputControlLogin() {
     return (

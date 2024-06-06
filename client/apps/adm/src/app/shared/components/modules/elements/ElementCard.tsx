@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react';
-import {Button} from "@ui/components/ui/button";
 import {PageElementsControllerGetQueryResponse, pageElementsGetQueryKey, usePageElementsDelete} from "@repo/api";
-import {mutatePositive} from "../../../mutatePositive";
+import {mutatePositive} from "@/features/shared/query/mutatePositive";
+import {Button} from "@repo/ui/components/button";
 
 type ElementCardProps = {
     element: PageElementsControllerGetQueryResponse[0],

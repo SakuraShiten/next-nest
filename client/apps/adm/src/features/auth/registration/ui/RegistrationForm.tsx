@@ -1,14 +1,15 @@
 'use client'
 
-import {useUsersAuth} from "@repo/api";
+import React from 'react';
+import {useUsersRegistration} from "@repo/api";
 import {useRouter} from "next/navigation";
 import {setToken} from "@/features/auth/shared/actions";
 import FormMutation from "@/features/shared/ui/form/FormMutation";
-import {loginSchema} from "@/features/auth/login/domain/LoginDomain";
+import {registrationSchema} from "@/features/auth/registration/domain/RegistrationDomain";
 import InputControlLogin from "@/features/shared/ui/input/InputControlLogin";
 import InputControlPassword from "@/features/shared/ui/input/InputControlPassword";
 
-const LoginForm = () => {
+const RegistrationForm = () => {
     const {push} = useRouter()
     const onSuccess = async (token: string) => {
         await setToken(token)
@@ -16,9 +17,9 @@ const LoginForm = () => {
     }
 
     return <FormMutation
-        hook={useUsersAuth}
-        schema={loginSchema}
-        btnText={'Войти'}
+        hook={useUsersRegistration}
+        schema={registrationSchema}
+        btnText={'Зарегистрироваться'}
         hookOptions={{
             onSuccess: ({token}) => onSuccess(token)
         }}
@@ -28,4 +29,4 @@ const LoginForm = () => {
     </FormMutation>
 }
 
-export default LoginForm
+export default RegistrationForm

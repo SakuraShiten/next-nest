@@ -1,6 +1,6 @@
 import {z} from "zod";
 
-export const loginSchema = z.object({
+export const registrationSchema = z.object({
     login: z.string({
         required_error: 'Логин обязателен',
         invalid_type_error: 'Логин должен быть строкой'

@@ -1,11 +1,13 @@
-import UIForm from "../../../../../features/shared/ui/flex/UIForm";
-import ButtonSubmit from "../buttons/ButtonSubmit";
-import TextError from "../../../../../features/shared/ui/text/TextError";
+'use client'
+
 import {FieldValues, FormProvider, useForm} from "react-hook-form";
 import React from "react";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {ZodType} from "zod";
 import {UseMutationOptions, UseMutationResult} from "@repo/api/react-query"
+import UIForm from "@/features/shared/ui/flex/UIForm";
+import ButtonSubmit from "@/features/shared/ui/button/ButtonSubmit";
+import TextError from "@/features/shared/ui/text/TextError";
 
 type HookOptionsProps<TData, TError, TResult> = {
     mutation?: UseMutationOptions<TResult, TError, TData>
@@ -50,7 +52,6 @@ const FormMutation = <
             <TextError message={error?.message}/>
         </UIForm>
     </FormProvider>
-
 }
 
 export default FormMutation

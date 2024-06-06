@@ -3,11 +3,11 @@
 import {pageElementsGetQueryKey, usePageElementsCreate} from "@repo/api";
 import PageCard from "../../../shared/components/modules/pages/PageCard";
 import {useRouter} from "next/navigation";
-import {Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger} from "@ui/components/ui/drawer";
-import {Button} from "@ui/components/ui/button";
-import FormMutation from "../../../shared/components/widgets/form/FormMutation";
+import {Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger} from "@ui/components/drawer";
+import {Button} from "@ui/components/button";
+import FormMutation from "../../../../features/shared/ui/form/FormMutation";
 import {z} from "zod";
-import InputControl from "../../../shared/components/widgets/inputs/InputControl";
+import InputControl from "../../../../features/shared/ui/inputs/InputControl";
 import {useQueryClient} from "@repo/api/react-query";
 import {useState} from "react";
 import ElementTextCreate from "../../../shared/components/modules/elements/Text/ElementTextCreate";

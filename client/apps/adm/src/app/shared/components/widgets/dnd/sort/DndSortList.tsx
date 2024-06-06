@@ -1,7 +1,7 @@
 import {closestCenter, DndContext, DragEndEvent, MouseSensor, TouchSensor, useSensor, useSensors} from "@dnd-kit/core";
 import {arrayMove, SortableContext, verticalListSortingStrategy} from "@dnd-kit/sortable";
 import React from "react";
-import DndSortItem from "./DndSortItem";
+import DndSortItem from "@/app/shared/components/widgets/dnd/sort/DndSortItem";
 
 type DndListProps<TItem> = {
     items: TItem[]

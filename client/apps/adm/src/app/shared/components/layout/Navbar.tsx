@@ -1,9 +1,9 @@
 'use client'
 
 import {useRouter} from "next/navigation";
-import {Button} from "@ui/components/ui/button";
-import {cleanToken} from "../../../../features/auth/actions";
 import {useState} from "react";
+import {cleanToken} from "@/features/auth/shared/actions";
+import {Button} from "@repo/ui/components/button";
 
 function Navbar() {
     const [isLoad, setIsLoad] = useState(false)
