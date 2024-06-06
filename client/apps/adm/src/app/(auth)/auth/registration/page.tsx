@@ -1,7 +1,10 @@
 import RegistrationForm from "@/features/auth/registration/ui/RegistrationForm";
+import type {Metadata} from "next";
 
-function Page() {
-    return <RegistrationForm/>
+export const metadata: Metadata = {
+    title: 'Регистрация'
 }
 
-export default Page
+export default function Page() {
+    return <RegistrationForm/>
+}

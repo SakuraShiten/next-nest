@@ -2,7 +2,7 @@
 
 import React from 'react';
 import {usePagesMyGet} from "@repo/api";
-import PageItem from "@/features/main/ui/PageItem";
+import PageItem from "@/features/page/ui/PageItem";
 
 const PageList = () => {
     const {data} = usePagesMyGet()

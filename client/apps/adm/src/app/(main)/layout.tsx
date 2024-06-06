@@ -1,9 +1,7 @@
-import Navbar from "../shared/components/layout/Navbar";
+import Navbar from "@/features/page/shared/Navbar";
+import React from "react";
 
-
-export default function RootLayout({children}: {
-    children: React.ReactNode;
-}): JSX.Element {
+export default function RootLayout({children}: { children: React.ReactNode }) {
     return (<>
         <Navbar/>
         {children}

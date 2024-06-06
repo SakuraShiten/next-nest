@@ -5,16 +5,21 @@ import {usePagesGet} from "@repo/api";
 import Link from "next/link";
 import {Skeleton} from "@repo/ui/components/skeleton";
 import UIFlexRow from "@/features/shared/ui/flex/UIFlexRow";
-import DeletePage from "@/features/main/ui/DeletePage";
-import UpdateStatusPage from "@/features/main/ui/UpdateStatusPage";
+import PageStatusUpdate from "@/features/page/ui/PageStatusUpdate";
+import PageDelete from "@/features/page/ui/PageDelete";
+import {useRouter} from "next/navigation";
 
 type PageItemProps = {
     id: number;
-    onRemove?: () => void;
 }
 
-const PageItem = ({id, onRemove}: PageItemProps) => {
+const PageItem = ({id}: PageItemProps) => {
     const {data, isSuccess, isLoading} = usePagesGet(id)
+    const {push} = useRouter()
+
+    const handleRemove = () => {
+        push('/')
+    }
 
     if (isLoading) return <Skeleton className={'h-20 w-36'}/>
     if (!isSuccess) return null
@@ -27,9 +32,9 @@ const PageItem = ({id, onRemove}: PageItemProps) => {
             <p>{data.title}</p>
         </Link>
 
-        <DeletePage id={data.id} onRemove={onRemove}/>
+        <PageDelete id={data.id} onRemove={handleRemove}/>
 
-        <UpdateStatusPage page={data}/>
+        <PageStatusUpdate page={data}/>
     </UIFlexRow>
 }
 

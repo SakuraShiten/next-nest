@@ -1,65 +1,23 @@
-'use client'
+import PageItem from "@/features/page/ui/PageItem";
+import PageElementList from "@/features/page/element/ui/PageElementList";
+import PageElementTextCreate from "@/features/page/element/ui/PageElementTextCreate";
+import PageElementTextHeader from "@/features/page/element/ui/PageElementTextHeader";
 
-import {pageElementsGetQueryKey, usePageElementsCreate} from "@repo/api";
-import PageCard from "../../../shared/components/modules/pages/PageCard";
-import {useRouter} from "next/navigation";
-import {Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger} from "@ui/components/drawer";
-import {Button} from "@ui/components/button";
-import FormMutation from "../../../../features/shared/ui/form/FormMutation";
-import {z} from "zod";
-import InputControl from "../../../../features/shared/ui/inputs/InputControl";
-import {useQueryClient} from "@repo/api/react-query";
-import {useState} from "react";
-import ElementTextCreate from "../../../shared/components/modules/elements/Text/ElementTextCreate";
-import ElementList from "../../../shared/components/modules/elements/ElementList";
+export const generateMetadata = ({params: {pageId}}: { params: { pageId: string } }) => ({
+    title: `Страница ${pageId}`
+})
 
-function Page({params: {pageId}}: { params: { pageId: string } }) {
-    const queryClient = useQueryClient()
-    const [isDrawerOpenHeader, setIsDrawerOpenHeader] = useState(false)
-    const {push} = useRouter()
+const Page = ({params: {pageId}}: { params: { pageId: string } }) => {
+    const pageIdNumber = Number(pageId)
 
-    return (
-        <div>
-            <PageCard
-                id={Number(pageId)}
-                onRemove={() => {
-                    push('/')
-                }}
-            />
-            <br/>
+    return <>
+        <PageItem id={pageIdNumber}/>
 
-            <ElementTextCreate pageId={Number(pageId)}/>
+        <PageElementTextCreate pageId={pageIdNumber}/>
+        <PageElementTextHeader pageId={pageIdNumber}/>
 
-            <Drawer onOpenChange={setIsDrawerOpenHeader} open={isDrawerOpenHeader}>
-                <Button asChild={true}><DrawerTrigger>+</DrawerTrigger></Button>
-                <DrawerContent>
-                    <DrawerHeader>
-                        <DrawerTitle>+++</DrawerTitle>
-                    </DrawerHeader>
-                    <FormMutation
-                        hook={usePageElementsCreate}
-                        id={Number(pageId)}
-                        btnText={'+'}
-                        schema={z.object({
-                            type: z.string(),
-                            header: z.string(),
-                        })}
-                        hookOptions={{
-                            onSuccess: () => {
-                                setIsDrawerOpenHeader(false)
-                                queryClient.invalidateQueries({queryKey: pageElementsGetQueryKey(Number(pageId))}).then()
-                            }
-                        }}
-                    >
-                        <InputControl name={'type'} placeholder={'type'}/>
-                        <InputControl name={'header'} placeholder={'text'}/>
-                    </FormMutation>
-                </DrawerContent>
-            </Drawer>
-
-            <ElementList pageId={Number(pageId)}/>
-        </div>
-    )
+        <PageElementList pageId={pageIdNumber}/>
+    </>
 }
 
 export default Page

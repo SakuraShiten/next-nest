@@ -5,7 +5,7 @@ import {PagesControllerGetQueryResponse, pagesGetQueryKey, usePagesUpdate} from 
 import {mutatePositive} from "@/features/shared/query/mutatePositive";
 import {Button} from "@repo/ui/components/button";
 
-const UpdateStatusPage = ({page}: { page: PagesControllerGetQueryResponse }) => {
+const PageStatusUpdate = ({page}: { page: PagesControllerGetQueryResponse }) => {
     const queryKey = useMemo(() => pagesGetQueryKey(page.id), [])
 
     const {mutate, isPending} = usePagesUpdate(page.id, mutatePositive({
@@ -20,4 +20,4 @@ const UpdateStatusPage = ({page}: { page: PagesControllerGetQueryResponse }) => 
     >{page.isPublished ? "Д" : "Н"}</Button>
 }
 
-export default UpdateStatusPage
+export default PageStatusUpdate

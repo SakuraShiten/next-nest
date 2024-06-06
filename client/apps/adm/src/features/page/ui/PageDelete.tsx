@@ -10,7 +10,7 @@ type DeletePageProps = {
     onRemove?: () => void;
 }
 
-const DeletePage = ({id, onRemove}: DeletePageProps) => {
+const PageDelete = ({id, onRemove}: DeletePageProps) => {
     const queryKey = useMemo(() => pagesMyGetQueryKey(), [])
     const {mutate, isPending} = usePagesRemove(id, mutatePositive({
             queryKey, onUpdate: (olds: PagesControllerMyGetQueryResponse) => olds?.filter((page) => page.id !== id)
@@ -28,4 +28,4 @@ const DeletePage = ({id, onRemove}: DeletePageProps) => {
     >X</Button>
 }
 
-export default DeletePage
+export default PageDelete

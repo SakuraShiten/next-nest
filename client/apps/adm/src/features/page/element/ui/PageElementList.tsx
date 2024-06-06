@@ -1,16 +1,17 @@
+'use client'
+
+import React, {useEffect, useMemo} from 'react';
 import {
     PageElementsControllerGetQueryResponse,
     PageElementsControllerUpdatePositionMutationRequest,
     pageElementsGetQueryKey,
-    usePageElementsGet,
-    usePageElementsUpdatePosition
+    usePageElementsGet, usePageElementsUpdatePosition
 } from "@repo/api";
-import React, {useEffect, useMemo} from "react";
-import ElementCard from "./ElementCard";
-import DndSortList from "../../widgets/dnd/sort/DndSortList";
 import {mutatePositive} from "@/features/shared/query/mutatePositive";
+import DndSortList from "@/features/shared/dnd/DndSortList";
+import PageElementItem from "@/features/page/element/ui/PageElementItem";
 
-function ElementList({pageId}: { pageId: number }) {
+const PageElementList = ({pageId}: { pageId: number }) => {
     const {data, isSuccess} = usePageElementsGet(pageId)
     const [elements, setElements] = React.useState<PageElementsControllerGetQueryResponse>([])
     const queryKey = useMemo(() => pageElementsGetQueryKey(pageId), [pageId])
@@ -41,7 +42,7 @@ function ElementList({pageId}: { pageId: number }) {
         items={elements}
         onDragEnd={onDragEnd}
     >
-        {item => <ElementCard
+        {item => <PageElementItem
             pageId={pageId}
             element={item}
             key={item.id}
@@ -49,4 +50,4 @@ function ElementList({pageId}: { pageId: number }) {
     </DndSortList>
 }
 
-export default ElementList;
+export default PageElementList
