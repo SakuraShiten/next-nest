@@ -1,7 +1,7 @@
 import {closestCenter, DndContext, DragEndEvent, MouseSensor, TouchSensor, useSensor, useSensors} from "@dnd-kit/core";
 import {arrayMove, SortableContext, verticalListSortingStrategy} from "@dnd-kit/sortable";
 import React from "react";
-import DndSortItem from "@/features/shared/dnd/DndSortItem";
+import DndSortItem from "@/features/shared/ui/dnd/DndSortItem";
 
 type DndListProps<TItem> = {
     items: TItem[]
@@ -49,7 +49,11 @@ export default function DndSortList<
         collisionDetection={closestCenter}
         onDragEnd={dragEnd}
     >
-        <SortableContext items={items} strategy={verticalListSortingStrategy}>
+        <SortableContext
+            items={items}
+            strategy={verticalListSortingStrategy}
+
+        >
             {items.map(item => <DndSortItem
                 key={item.id}
                 id={item.id}

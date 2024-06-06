@@ -18,12 +18,15 @@ export default function PageElementDelete({pageId, elementId}: PageElementDelete
     )
 
     return <Button
+        className={'px-0'}
+        size={'sm'}
+        variant={'ghost'}
         onMouseDown={(e) => {
             e.stopPropagation()
             mutate(undefined as never)
         }}
     >
-        x
+        Удалить
     </Button>
 }
 

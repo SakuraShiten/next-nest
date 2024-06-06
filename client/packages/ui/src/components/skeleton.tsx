@@ -1,5 +1,5 @@
-import {cn} from "@ui/lib/utils";
 import React from "react";
+import {cn} from "../lib/utils";
 
 function Skeleton(
     {

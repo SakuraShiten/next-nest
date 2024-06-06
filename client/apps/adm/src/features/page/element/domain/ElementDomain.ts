@@ -11,3 +11,8 @@ export const pageElementHeaderSchema = z.object({
         .min(1, 'Введите заголовок')
         .max(100, 'Максимальная длина 100')
 })
+
+export const pageElementTypes = {
+    'text': 'Текст',
+    'header': 'Заголовок'
+} as const

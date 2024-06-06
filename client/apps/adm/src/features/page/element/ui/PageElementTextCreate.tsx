@@ -25,8 +25,9 @@ export default function PageElementTextCreate({pageId}: { pageId: number }) {
     }))
 
     return <UIDrawer
-        text={'+'}
+        text={'Добавить текст'}
         isOpen={isDrawerOpen}
+        title={'Добавление текста'}
         setIsOpen={setIsDrawerOpen}
     >
         <FormProvider {...methods}>
@@ -37,8 +38,8 @@ export default function PageElementTextCreate({pageId}: { pageId: number }) {
                     methods.reset()
                 })}
             >
-                <InputControl name={'text'} placeholder={'text'}/>
-                <ButtonSubmit disabled={isPending}>{'Создать'}</ButtonSubmit>
+                <InputControl name={'text'} placeholder={'Текст'}/>
+                <ButtonSubmit disabled={isPending}>{'Добавить'}</ButtonSubmit>
             </UIForm>
         </FormProvider>
     </UIDrawer>

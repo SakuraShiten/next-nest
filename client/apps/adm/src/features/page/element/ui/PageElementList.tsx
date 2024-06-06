@@ -9,7 +9,7 @@ import {
     usePageElementsUpdatePosition
 } from "@repo/api";
 import {mutatePositive} from "@/features/shared/query/mutatePositive";
-import DndSortList from "@/features/shared/dnd/DndSortList";
+import DndSortList from "@/features/shared/ui/dnd/DndSortList";
 import PageElementItem from "@/features/page/element/ui/PageElementItem";
 
 export default function PageElementList({pageId}: { pageId: number }) {

@@ -11,7 +11,7 @@ import UIForm from "@/features/shared/ui/flex/UIForm";
 import InputControl from "@/features/shared/ui/input/InputControl";
 import ButtonSubmit from "@/features/shared/ui/button/ButtonSubmit";
 
-export default function PageElementTextHeader({pageId}: { pageId: number }) {
+export default function PageElementHeaderCreate({pageId}: { pageId: number }) {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false)
     const methods = useForm<{ header: string }>({
         defaultValues: {header: ''}, resolver: zodResolver(pageElementHeaderSchema)
@@ -25,7 +25,8 @@ export default function PageElementTextHeader({pageId}: { pageId: number }) {
     }))
 
     return <UIDrawer
-        text={'+'}
+        text={'Добавить заголовок'}
+        title={'Добавление заголовка'}
         isOpen={isDrawerOpen}
         setIsOpen={setIsDrawerOpen}
     >
@@ -37,8 +38,8 @@ export default function PageElementTextHeader({pageId}: { pageId: number }) {
                     methods.reset()
                 })}
             >
-                <InputControl name={'header'} placeholder={'header'}/>
-                <ButtonSubmit disabled={isPending}>{'Создать'}</ButtonSubmit>
+                <InputControl name={'header'} placeholder={'Заголовок'}/>
+                <ButtonSubmit disabled={isPending}>{'Добавить'}</ButtonSubmit>
             </UIForm>
         </FormProvider>
     </UIDrawer>

@@ -1,5 +1,3 @@
-'use client'
-
 import React from 'react';
 import {Button} from "@repo/ui/components/button";
 import {Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger} from "@repo/ui/components/drawer";
@@ -22,7 +20,11 @@ export default function UIDrawer({isOpen, setIsOpen, text, children, title, onCl
     }
 
     return <Drawer open={isOpen} onOpenChange={handleOpenChange}>
-        <Button asChild={true}><DrawerTrigger>{text}</DrawerTrigger></Button>
+        <Button
+            className={'w-full'}
+            variant={'outline'}
+            asChild={true}
+        ><DrawerTrigger>{text}</DrawerTrigger></Button>
         <DrawerContent>
             {title ? <DrawerHeader>
                 <DrawerTitle>{title}</DrawerTitle>
