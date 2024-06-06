@@ -1,25 +1,17 @@
 'use client'
 
 import {useRouter} from "next/navigation";
-import {useState} from "react";
 import {cleanToken} from "@/features/auth/shared/actions";
 import {Button} from "@repo/ui/components/button";
 
-function Navbar() {
-    const [isLoad, setIsLoad] = useState(false)
+export default function Navbar() {
     const {push} = useRouter()
 
-    const handleExit = async () => {
-        setIsLoad(true)
-        await cleanToken()
+    const handleExit = () => {
+        cleanToken().then()
         push('/auth/login')
     }
 
-    return (
-        <div>
-            <Button disabled={isLoad} onClick={handleExit}>{''}</Button>
-        </div>
-    )
+    return <Button onClick={handleExit}>{''}</Button>
 }
 
-export default Navbar

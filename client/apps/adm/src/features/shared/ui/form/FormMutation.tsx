@@ -26,7 +26,7 @@ type FormMutation<TData, TError, TResult, TId> = {
     btnText?: string
 }
 
-const FormMutation = <
+export default function FormMutation<
     TData extends FieldValues,
     TError extends { statusCode: number; message: string },
     TResult,
@@ -35,7 +35,7 @@ const FormMutation = <
     {hook, id, hookOptions, schema, btnText, children}: FormMutation<
         TData, TError, TResult, TId
     >
-) => {
+) {
     const methods = useForm<TData>({
         resolver: schema ? zodResolver(schema) : undefined,
     })
@@ -53,5 +53,3 @@ const FormMutation = <
         </UIForm>
     </FormProvider>
 }
-
-export default FormMutation

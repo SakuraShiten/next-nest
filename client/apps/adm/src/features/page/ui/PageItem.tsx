@@ -13,7 +13,7 @@ type PageItemProps = {
     id: number;
 }
 
-const PageItem = ({id}: PageItemProps) => {
+export default function PageItem({id}: PageItemProps) {
     const {data, isSuccess, isLoading} = usePagesGet(id)
     const {push} = useRouter()
 
@@ -37,5 +37,3 @@ const PageItem = ({id}: PageItemProps) => {
         <PageStatusUpdate page={data}/>
     </UIFlexRow>
 }
-
-export default PageItem

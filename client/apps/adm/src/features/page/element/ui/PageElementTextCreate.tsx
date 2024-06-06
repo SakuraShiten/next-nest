@@ -11,7 +11,7 @@ import ButtonSubmit from "@/features/shared/ui/button/ButtonSubmit";
 import {pageElementTextSchema} from "@/features/page/element/domain/ElementDomain";
 import UIDrawer from "@/features/shared/ui/drawer/UIDrawer";
 
-const PageElementTextCreate = ({pageId}: {pageId:number}) => {
+export default function PageElementTextCreate({pageId}: { pageId: number }) {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false)
     const methods = useForm<{ text: string }>({
         defaultValues: {text: ''}, resolver: zodResolver(pageElementTextSchema)
@@ -44,4 +44,3 @@ const PageElementTextCreate = ({pageId}: {pageId:number}) => {
     </UIDrawer>
 }
 
-export default PageElementTextCreate

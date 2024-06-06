@@ -11,7 +11,7 @@ import UIForm from "@/features/shared/ui/flex/UIForm";
 import InputControl from "@/features/shared/ui/input/InputControl";
 import ButtonSubmit from "@/features/shared/ui/button/ButtonSubmit";
 
-const PageElementTextHeader = ({pageId}: { pageId: number }) => {
+export default function PageElementTextHeader({pageId}: { pageId: number }) {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false)
     const methods = useForm<{ header: string }>({
         defaultValues: {header: ''}, resolver: zodResolver(pageElementHeaderSchema)
@@ -44,4 +44,3 @@ const PageElementTextHeader = ({pageId}: { pageId: number }) => {
     </UIDrawer>
 }
 
-export default PageElementTextHeader

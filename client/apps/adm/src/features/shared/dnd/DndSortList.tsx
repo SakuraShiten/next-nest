@@ -9,7 +9,7 @@ type DndListProps<TItem> = {
     onDragEnd?: (items: TItem[]) => void
 }
 
-function DndSortList<
+export default function DndSortList<
     TItem extends { id: number }
 >(
     {
@@ -20,7 +20,12 @@ function DndSortList<
 ) {
 
     const sensors = useSensors(
-        useSensor(MouseSensor),
+        useSensor(MouseSensor, {
+            activationConstraint: {
+                delay: 100,
+                tolerance: 5
+            }
+        }),
         useSensor(TouchSensor, {
             activationConstraint: {
                 delay: 100,
@@ -53,7 +58,4 @@ function DndSortList<
             </DndSortItem>)}
         </SortableContext>
     </DndContext>
-
 }
-
-export default DndSortList

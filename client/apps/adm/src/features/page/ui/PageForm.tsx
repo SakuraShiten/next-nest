@@ -10,7 +10,7 @@ import InputControl from "@/features/shared/ui/input/InputControl";
 import {pageSchema} from "@/features/page/domain/PageDomain";
 import UIDrawer from "@/features/shared/ui/drawer/UIDrawer";
 
-const PageForm = () => {
+export default function PageForm() {
     const queryClient = useQueryClient()
     const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
@@ -35,5 +35,3 @@ const PageForm = () => {
         </FormMutation>
     </UIDrawer>
 }
-
-export default PageForm

@@ -9,7 +9,7 @@ import {registrationSchema} from "@/features/auth/registration/domain/Registrati
 import InputControlLogin from "@/features/shared/ui/input/InputControlLogin";
 import InputControlPassword from "@/features/shared/ui/input/InputControlPassword";
 
-const RegistrationForm = () => {
+export default function RegistrationForm() {
     const {push} = useRouter()
     const onSuccess = async (token: string) => {
         await setToken(token)
@@ -29,4 +29,3 @@ const RegistrationForm = () => {
     </FormMutation>
 }
 
-export default RegistrationForm

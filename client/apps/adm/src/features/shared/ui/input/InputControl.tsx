@@ -8,32 +8,28 @@ type InputControlProps = {
     rules?: ControllerProps['rules'],
 } & Omit<React.ComponentProps<typeof Input>, 'name'>
 
-function InputControl({name, rules, ...props}: InputControlProps) {
+export default function InputControl({name, rules, ...props}: InputControlProps) {
     const {control} = useFormContext()
 
-    return (
-        <Controller
-            control={control}
-            name={name}
-            rules={rules}
-            render={(
-                {
-                    field: {name, ref, onBlur, onChange, value, disabled},
-                    fieldState: {error}
-                }) => <div className={'w-full'}>
-                <Input
-                    {...props}
-                    name={name}
-                    ref={ref}
-                    onBlur={onBlur}
-                    onChange={onChange}
-                    value={value || ''}
-                    disabled={disabled}
-                />
-                {error?.message && <p className={'text-gray-600 text-sm'}>{error.message}</p>}
-            </div>}
-        />
-    )
+    return <Controller
+        control={control}
+        name={name}
+        rules={rules}
+        render={(
+            {
+                field: {name, ref, onBlur, onChange, value, disabled},
+                fieldState: {error}
+            }) => <div className={'w-full'}>
+            <Input
+                {...props}
+                name={name}
+                ref={ref}
+                onBlur={onBlur}
+                onChange={onChange}
+                value={value || ''}
+                disabled={disabled}
+            />
+            {error?.message && <p className={'text-gray-600 text-sm'}>{error.message}</p>}
+        </div>}
+    />
 }
-
-export default InputControl

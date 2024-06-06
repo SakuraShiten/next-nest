@@ -7,7 +7,7 @@ export const generateMetadata = ({params: {pageId}}: { params: { pageId: string 
     title: `Страница ${pageId}`
 })
 
-const Page = ({params: {pageId}}: { params: { pageId: string } }) => {
+export default function Page({params: {pageId}}: { params: { pageId: string } }) {
     const pageIdNumber = Number(pageId)
 
     return <>
@@ -19,5 +19,3 @@ const Page = ({params: {pageId}}: { params: { pageId: string } }) => {
         <PageElementList pageId={pageIdNumber}/>
     </>
 }
-
-export default Page

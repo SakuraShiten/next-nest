@@ -8,7 +8,7 @@ type PageElementDeleteProps = {
     elementId: number;
 }
 
-const PageElementDelete = ({pageId, elementId}: PageElementDeleteProps) => {
+export default function PageElementDelete({pageId, elementId}: PageElementDeleteProps) {
     const queryKey = useMemo(() => pageElementsGetQueryKey(pageId), [])
     const {mutate} = usePageElementsDelete(
         pageId, elementId, mutatePositive({
@@ -27,4 +27,3 @@ const PageElementDelete = ({pageId, elementId}: PageElementDeleteProps) => {
     </Button>
 }
 
-export default PageElementDelete

@@ -8,7 +8,7 @@ import {loginSchema} from "@/features/auth/login/domain/LoginDomain";
 import InputControlLogin from "@/features/shared/ui/input/InputControlLogin";
 import InputControlPassword from "@/features/shared/ui/input/InputControlPassword";
 
-const LoginForm = () => {
+export default function LoginForm() {
     const {push} = useRouter()
     const onSuccess = async (token: string) => {
         await setToken(token)
@@ -28,4 +28,3 @@ const LoginForm = () => {
     </FormMutation>
 }
 
-export default LoginForm

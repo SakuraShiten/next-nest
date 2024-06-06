@@ -5,13 +5,14 @@ import {
     PageElementsControllerGetQueryResponse,
     PageElementsControllerUpdatePositionMutationRequest,
     pageElementsGetQueryKey,
-    usePageElementsGet, usePageElementsUpdatePosition
+    usePageElementsGet,
+    usePageElementsUpdatePosition
 } from "@repo/api";
 import {mutatePositive} from "@/features/shared/query/mutatePositive";
 import DndSortList from "@/features/shared/dnd/DndSortList";
 import PageElementItem from "@/features/page/element/ui/PageElementItem";
 
-const PageElementList = ({pageId}: { pageId: number }) => {
+export default function PageElementList({pageId}: { pageId: number }) {
     const {data, isSuccess} = usePageElementsGet(pageId)
     const [elements, setElements] = React.useState<PageElementsControllerGetQueryResponse>([])
     const queryKey = useMemo(() => pageElementsGetQueryKey(pageId), [pageId])
@@ -50,4 +51,3 @@ const PageElementList = ({pageId}: { pageId: number }) => {
     </DndSortList>
 }
 
-export default PageElementList

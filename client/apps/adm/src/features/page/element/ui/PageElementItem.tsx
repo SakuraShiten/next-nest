@@ -7,8 +7,7 @@ type ElementCardProps = {
     pageId: number
 }
 
-const PageElementItem = ({element, pageId}: ElementCardProps) => {
-
+export default function PageElementItem({element, pageId}: ElementCardProps) {
     return <div
         className={'p-4 bg-white border-2 rounded-xl m-4'}
     >
@@ -27,4 +26,3 @@ const PageElementItem = ({element, pageId}: ElementCardProps) => {
 
 }
 
-export default PageElementItem

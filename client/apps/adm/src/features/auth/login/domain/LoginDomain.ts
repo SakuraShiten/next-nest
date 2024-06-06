@@ -1,13 +1,11 @@
 import {z} from "zod";
 
 export const loginSchema = z.object({
-    login: z.string({
-        required_error: 'Логин обязателен',
-        invalid_type_error: 'Логин должен быть строкой'
-    }).min(6, 'Логин должен быть больше 6 символов'),
+    login: z.string({required_error: 'Обязательное поле'})
+        .min(6, 'Минимальная длина 6')
+        .max(100, 'Максимальная длина 100'),
 
-    password: z.string({
-        required_error: 'Пароль обязателен',
-        invalid_type_error: 'Пароль должен быть строкой'
-    }).min(6, 'Пароль должен быть больше 6 символов')
+    password: z.string({required_error: 'Обязательное поле'})
+        .min(6, 'Минимальная длина 6')
+        .max(100, 'Максимальная длина 100')
 })

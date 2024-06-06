@@ -7,7 +7,7 @@ type DndSortItemProps = {
     children: React.ReactNode
 }
 
-function DndSortItem({id, children}: DndSortItemProps) {
+export default function DndSortItem({id, children}: DndSortItemProps) {
     const {attributes, isDragging, listeners, setNodeRef, transform, transition} = useSortable({id});
 
     const style = {
@@ -26,5 +26,3 @@ function DndSortItem({id, children}: DndSortItemProps) {
         {children}
     </div>
 }
-
-export default DndSortItem
