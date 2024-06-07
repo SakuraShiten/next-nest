@@ -6,13 +6,15 @@ type Infer<T = any> = any
 
 type MutatePositiveProps<TQueryKey, TElements, TData> = {
     queryKey: TQueryKey,
-    onUpdate: (old: Infer<TData>, data: TData) => Infer<TElements>
+    onUpdate: (old: Infer<TData>, data: TData) => Infer<TElements>,
+    onErrorExtend?: () => void
 }
 
 export const mutatePositive = <TQueryKey extends QueryKey, TElements, TData>(
     {
         queryKey,
-        onUpdate
+        onUpdate,
+        onErrorExtend
     }: MutatePositiveProps<TQueryKey, TElements, TData>
 ) => {
     const queryClient = useQueryClient()
@@ -31,6 +33,7 @@ export const mutatePositive = <TQueryKey extends QueryKey, TElements, TData>(
     const onError = (_err: unknown, _data: unknown, context: unknown) => {
         const prev = context as { previous: NoInfer<TElements> }
         queryClient.setQueryData(queryKey, prev?.previous)
+        onErrorExtend?.()
     }
 
     return {mutation: {onMutate, onSettled, onError}}
