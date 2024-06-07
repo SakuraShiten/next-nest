@@ -2,8 +2,7 @@ import {z} from "zod";
 import {ElementsResSchema} from "@/models/pageElements/dto/elements.dto";
 
 export const PagesCreateSchema = z.object({
-    title: z.string().min(1).max(100),
-    url: z.string().min(1).max(100),
+    title: z.string().min(1).max(100).regex(/^[a-zA-Z0-9а-яА-Я\s]+$/),
     isPublished: z.boolean().optional()
 })
 

@@ -3,8 +3,8 @@
 import React, {useMemo} from 'react';
 import {PagesControllerMyGetQueryResponse, pagesMyGetQueryKey, usePagesRemove} from "@repo/api";
 import {mutatePositive} from "@/features/shared/query/mutatePositive";
-import {Button} from "@repo/ui/components/button";
 import ButtonDelete from "@/features/shared/ui/button/ButtonDelete";
+import {useAlert} from "@/features/shared/ui/hook/useAlert";
 
 type DeletePageProps = {
     id: number;
@@ -13,15 +13,15 @@ type DeletePageProps = {
 
 export default function PageDelete({id, onRemove}: DeletePageProps) {
     const queryKey = useMemo(() => pagesMyGetQueryKey(), [])
-    const {mutate, isPending} = usePagesRemove(id, mutatePositive({
+    const {mutate} = usePagesRemove(id, mutatePositive({
             queryKey, onUpdate: (olds: PagesControllerMyGetQueryResponse) => olds?.filter((page) => page.id !== id)
         })
     )
-
-    const removeHandler = () => {
+    const handlerDelete = () => {
         mutate(undefined as never)
         onRemove?.()
     }
+    const {alert} = useAlert(handlerDelete)
 
-    return <ButtonDelete onClick={removeHandler} disabled={isPending}/>
+    return <ButtonDelete onClick={alert}>Удалить</ButtonDelete>
 }

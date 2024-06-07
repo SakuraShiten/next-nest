@@ -4,6 +4,7 @@ import {EntityManager, FindOptionsWhere, Repository} from "typeorm";
 import {HttpException, Injectable} from "@nestjs/common";
 import {PagesCreateDto} from "./dto/pages.dto";
 import {ElementsService} from "@/models/elements/elements.service";
+import {cyrillicToLatin} from "@/common/helpers/utils";
 
 @Injectable()
 export class PagesService {
@@ -19,19 +20,13 @@ export class PagesService {
     async isUnique({page, userId, transaction}: {
         page: PagesCreateDto, userId: number, transaction?: EntityManager
     }) {
-        const pagesWhere: FindOptionsWhere<Pages>[] = [
-            {url: page.url, user: {id: userId}},
-            {title: page.title, user: {id: userId}}
-        ]
+        const where: FindOptionsWhere<Pages> = {title: page.title, user: {id: userId}}
 
         const candidate = transaction
-            ? await transaction.findOne(Pages, {where: pagesWhere, lock: {mode: 'dirty_read'}})
-            : await this.pagesRepository.findOne({where: pagesWhere})
+            ? await transaction.findOne(Pages, {where, lock: {mode: 'dirty_read'}})
+            : await this.pagesRepository.findOne({where})
 
-        if (candidate?.title === page.title)
-            throw new HttpException(`Страница с заголовком "${page.title}" существует`, 400)
-        if (candidate?.url === page.url)
-            throw new HttpException(`Страница c url "${page.url}" существует`, 400)
+        if (candidate) throw new HttpException(`Страница с заголовком "${page.title}" существует`, 400)
     }
 
     async isExist(id: number) {
@@ -62,8 +57,9 @@ export class PagesService {
         page: PagesCreateDto, userId: number, transaction: EntityManager
     }) {
         await this.isUnique({page, userId, transaction})
+        const pageUrl = cyrillicToLatin(page.title)
         return await transaction.save(Pages, {
-            ...page, user: {id: userId}
+            title: page.title, url: pageUrl, user: {id: userId}
         })
     }
 

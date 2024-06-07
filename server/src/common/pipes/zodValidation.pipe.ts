@@ -1,5 +1,6 @@
 import {PipeTransform, ArgumentMetadata, BadRequestException} from '@nestjs/common';
 import {ZodSchema} from 'zod';
+import {trimObject} from "@/common/helpers/utils";
 
 export class ZodValidation implements PipeTransform {
     constructor(private schema: ZodSchema) {
@@ -9,7 +10,7 @@ export class ZodValidation implements PipeTransform {
         if (metadata.type !== 'body') return value;
         try {
             const parsedValue = this.schema.parse(value);
-            return parsedValue;
+            return trimObject(parsedValue)
         } catch (error) {
             if (error.errors && Array.isArray(error.errors)) {
                 const errorFirst = error.errors[0]

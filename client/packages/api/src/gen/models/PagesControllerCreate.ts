@@ -22,10 +22,6 @@ export type PagesControllerCreate200 = {
     */
     title: string;
     /**
-     * @type string
-    */
-    url: string;
-    /**
      * @type boolean | undefined
     */
     isPublished?: boolean;

@@ -11,9 +11,11 @@ import {
 import {mutatePositive} from "@/features/shared/query/mutatePositive";
 import DndSortList from "@/features/shared/ui/dnd/DndSortList";
 import PageElementItem from "@/features/page/element/ui/PageElementItem";
+import {Skeleton} from "@repo/ui/components/skeleton";
+import UIFlexCol from "@/features/shared/ui/flex/UIFlexCol";
 
 export default function PageElementList({pageId}: { pageId: number }) {
-    const {data, isSuccess} = usePageElementsGet(pageId)
+    const {data, isSuccess, isLoading} = usePageElementsGet(pageId)
     const [elements, setElements] = React.useState<PageElementsControllerGetQueryResponse>([])
     const queryKey = useMemo(() => pageElementsGetQueryKey(pageId), [pageId])
 
@@ -38,7 +40,11 @@ export default function PageElementList({pageId}: { pageId: number }) {
         mutate(items.map(el => el.id))
     }
 
-    if (!isSuccess) return <></>
+    if (isLoading) return <UIFlexCol>
+        <Skeleton className={'h-28'}/>
+        <Skeleton className={'h-28'}/>
+    </UIFlexCol>
+    if (!isSuccess) return null
     return <DndSortList
         items={elements}
         onDragEnd={onDragEnd}

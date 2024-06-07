@@ -10,9 +10,13 @@ type UIDrawerProps = {
     setIsOpen: (value: boolean) => void
     onClose?: () => void
     onOpen?: () => void
+    buttonProps?: React.ComponentProps<typeof Button>
 }
 
-export default function UIDrawer({isOpen, setIsOpen, text, children, title, onClose, onOpen}: UIDrawerProps) {
+export default function UIDrawer(
+    {
+        isOpen, setIsOpen, text, children, title, onClose, onOpen, buttonProps
+    }: UIDrawerProps) {
     const handleOpenChange = (value: boolean) => {
         setIsOpen(value)
         if (value && onOpen) onOpen()
@@ -24,6 +28,7 @@ export default function UIDrawer({isOpen, setIsOpen, text, children, title, onCl
             className={'w-full'}
             variant={'outline'}
             asChild={true}
+            {...buttonProps}
         ><DrawerTrigger>{text}</DrawerTrigger></Button>
         <DrawerContent>
             {title ? <DrawerHeader>

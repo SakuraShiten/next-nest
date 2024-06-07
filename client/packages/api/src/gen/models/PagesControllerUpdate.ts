@@ -24,10 +24,6 @@ export type PagesControllerUpdatePathParams = {
     */
     title: string;
     /**
-     * @type string
-    */
-    url: string;
-    /**
      * @type boolean | undefined
     */
     isPublished?: boolean;

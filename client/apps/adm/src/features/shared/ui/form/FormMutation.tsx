@@ -45,6 +45,7 @@ export default function FormMutation<
 
     return <FormProvider {...methods}>
         <UIForm
+            className={'mb-10'}
             onSubmit={methods.handleSubmit((data: TData) => mutate(data))}
         >
             {children}
