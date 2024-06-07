@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react';
-import {Button} from "@repo/ui/components/button";
 import {PageElementsControllerGetQueryResponse, pageElementsGetQueryKey, usePageElementsDelete} from "@repo/api";
 import {mutatePositive} from "@/features/shared/query/mutatePositive";
+import ButtonDelete from "@/features/shared/ui/button/ButtonDelete";
 
 type PageElementDeleteProps = {
     pageId: number;
@@ -17,16 +17,9 @@ export default function PageElementDelete({pageId, elementId}: PageElementDelete
         })
     )
 
-    return <Button
-        className={'px-0'}
-        size={'sm'}
-        variant={'ghost'}
-        onMouseDown={(e) => {
-            e.stopPropagation()
-            mutate(undefined as never)
-        }}
-    >
-        Удалить
-    </Button>
+    return <ButtonDelete onMouseDown={(e) => {
+        e.stopPropagation()
+        mutate(undefined as never)
+    }}/>
 }
 

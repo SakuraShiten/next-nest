@@ -12,10 +12,11 @@ export default function PageStatusUpdate({page}: { page: PagesControllerGetQuery
         queryKey, onUpdate: (old, data) => ({...old, isPublished: data.isPublished})
     }))
 
+    const handleUpdate = () => mutate({...page, isPublished: !page.isPublished})
+
     return <Button
         disabled={isPending}
-        onClick={() => mutate({
-            ...page, isPublished: !page.isPublished
-        })}
-    >{page.isPublished ? "Д" : "Н"}</Button>
+        variant={'outline'}
+        onClick={handleUpdate}
+    >{page.isPublished ? 'Активен' : 'Не активен'}</Button>
 }

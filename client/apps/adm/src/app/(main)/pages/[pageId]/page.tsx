@@ -4,7 +4,6 @@ import PageElementTextCreate from "@/features/page/element/ui/PageElementTextCre
 import PageElementHeaderCreate from "@/features/page/element/ui/PageElementHeaderCreate";
 import UIFlexRow from "@/features/shared/ui/flex/UIFlexRow";
 import UIContainer from "@/features/shared/ui/flex/UIContainer";
-import {Separator} from "@repo/ui/components/separator";
 
 export const generateMetadata = ({params: {pageId}}: { params: { pageId: string } }) => ({
     title: `Страница ${pageId}`
@@ -15,8 +14,6 @@ export default function Page({params: {pageId}}: { params: { pageId: string } })
 
     return <UIContainer>
         <PageItem id={pageIdNumber}/>
-
-        <Separator/>
 
         <UIFlexRow>
             <PageElementTextCreate pageId={pageIdNumber}/>

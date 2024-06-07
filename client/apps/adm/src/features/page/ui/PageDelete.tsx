@@ -4,6 +4,7 @@ import React, {useMemo} from 'react';
 import {PagesControllerMyGetQueryResponse, pagesMyGetQueryKey, usePagesRemove} from "@repo/api";
 import {mutatePositive} from "@/features/shared/query/mutatePositive";
 import {Button} from "@repo/ui/components/button";
+import ButtonDelete from "@/features/shared/ui/button/ButtonDelete";
 
 type DeletePageProps = {
     id: number;
@@ -22,8 +23,5 @@ export default function PageDelete({id, onRemove}: DeletePageProps) {
         onRemove?.()
     }
 
-    return <Button
-        disabled={isPending}
-        onClick={() => removeHandler()}
-    >X</Button>
+    return <ButtonDelete onClick={removeHandler} disabled={isPending}/>
 }
