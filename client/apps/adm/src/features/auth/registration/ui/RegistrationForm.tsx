@@ -11,18 +11,21 @@ import InputControlPassword from "@/features/shared/ui/input/InputControlPasswor
 
 export default function RegistrationForm() {
     const {push} = useRouter()
-    const onSuccess = async (token: string) => {
-        await setToken(token)
-        push('/')
-    }
+    const {mutate, error, isPending} = useUsersRegistration({
+        mutation:{
+            onSuccess: async ({token}) => {
+                await setToken(token)
+                push('/')
+            }
+        }
+    })
 
     return <FormMutation
-        hook={useUsersRegistration}
+        mutate={mutate}
+        isPending={isPending}
+        error={error?.message}
         schema={registrationSchema}
         btnText={'Зарегистрироваться'}
-        hookOptions={{
-            onSuccess: ({token}) => onSuccess(token)
-        }}
     >
         <InputControlLogin/>
         <InputControlPassword/>

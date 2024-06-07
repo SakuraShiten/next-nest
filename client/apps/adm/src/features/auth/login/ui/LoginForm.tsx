@@ -10,18 +10,21 @@ import InputControlPassword from "@/features/shared/ui/input/InputControlPasswor
 
 export default function LoginForm() {
     const {push} = useRouter()
-    const onSuccess = async (token: string) => {
-        await setToken(token)
-        push('/')
-    }
+    const {mutate, error, isPending} = useUsersAuth({
+        mutation: {
+            onSuccess: async ({token}) => {
+                await setToken(token)
+                push('/')
+            }
+        }
+    })
 
     return <FormMutation
-        hook={useUsersAuth}
         schema={loginSchema}
+        mutate={mutate}
+        error={error?.message}
+        isPending={isPending}
         btnText={'Войти'}
-        hookOptions={{
-            onSuccess: ({token}) => onSuccess(token)
-        }}
     >
         <InputControlLogin/>
         <InputControlPassword/>
