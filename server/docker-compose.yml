@@ -10,7 +10,7 @@ services:
     ports:
       - "5001:5001"
     networks:
-      - my_network
+      - coolify
 
 networks:
   my_network:
