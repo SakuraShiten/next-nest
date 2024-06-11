@@ -2,7 +2,7 @@ import {NestFactory} from '@nestjs/core';
 import {AppModule} from './app.module';
 import {DocumentBuilder, SwaggerModule} from "@nestjs/swagger";
 import {FastifyAdapter, NestFastifyApplication} from "@nestjs/platform-fastify";
-import helmet from '@fastify/helmet'
+import cors from '@fastify/cors'
 
 async function bootstrap() {
     const app = await NestFactory.create<NestFastifyApplication>(
@@ -13,7 +13,13 @@ async function bootstrap() {
 
 
     app.setGlobalPrefix('api')
-    await app.register(helmet)
+    await app.register(cors,{
+        origin: '*',
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+        allowedHeaders: '*',
+        exposedHeaders: '*',
+        credentials: true
+    })
     const config = new DocumentBuilder()
         .addSecurity('bearer', {type: 'http', scheme: 'bearer'})
         .build()
