@@ -23,6 +23,11 @@ export class PagesController {
     constructor(private readonly pagesService: PagesService) {
     }
 
+    @Get('health')
+    async health() {
+        return 'OK'
+    }
+
     @Get()
     @ApiQuery({name: 'page', required: false, type: Number})
     @ResponseZod(PagesResSchema)
