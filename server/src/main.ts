@@ -14,11 +14,11 @@ async function bootstrap() {
 
     app.setGlobalPrefix('api')
     await app.register(cors,{
-        origin: '*',
-        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-        allowedHeaders: '*',
-        exposedHeaders: '*',
-        credentials: true
+        origin: (origin, cb) => {
+            if (!origin) return cb(null, true);
+            cb(null, true);
+        },
+        methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS'],
     })
     const config = new DocumentBuilder()
         .addSecurity('bearer', {type: 'http', scheme: 'bearer'})
