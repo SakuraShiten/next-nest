@@ -9,6 +9,7 @@ async function bootstrap() {
         new FastifyAdapter(),
         {cors: true}
     )
+    app.enableCors()
     app.setGlobalPrefix('api')
 
     const config = new DocumentBuilder()

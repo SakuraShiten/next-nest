@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@fastify/cors':
+    specifier: ^9.0.1
+    version: 9.0.1
   '@fastify/static':
     specifier: ^7.0.3
     version: 7.0.3
