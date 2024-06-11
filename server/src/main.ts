@@ -2,17 +2,19 @@ import {NestFactory} from '@nestjs/core';
 import {AppModule} from './app.module';
 import {DocumentBuilder, SwaggerModule} from "@nestjs/swagger";
 import {FastifyAdapter, NestFastifyApplication} from "@nestjs/platform-fastify";
-import fastifyCors from "@fastify/cors";
 
 async function bootstrap() {
     const app = await NestFactory.create<NestFastifyApplication>(
         AppModule,
         new FastifyAdapter()
     )
-    app.register(fastifyCors, {
-        origin: true, // Разрешить все источники
-        methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS'],
-    });
+    app.enableCors({
+        origin: '*',
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+        preflightContinue: false,
+        optionsSuccessStatus: 204,
+        allowedHeaders: '*',
+    })
     app.setGlobalPrefix('api')
 
     const config = new DocumentBuilder()
