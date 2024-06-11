@@ -18,7 +18,7 @@ async function bootstrap() {
     const document = SwaggerModule.createDocument(app, config)
     SwaggerModule.setup('openapi', app, document)
 
-    await app.listen(5000)
+    await app.listen(5001)
     console.log(`Application is running on: ${await app.getUrl()}`)
 }
 
