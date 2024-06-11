@@ -26,6 +26,6 @@ COPY --from=builder --chown=node:node /app/dist/ ./dist/
 
 USER nestjs
 
-EXPOSE 5001
+EXPOSE 5000
 
 CMD ["npm", "run", "start:prod"]
