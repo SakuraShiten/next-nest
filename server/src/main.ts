@@ -6,10 +6,11 @@ import {FastifyAdapter, NestFastifyApplication} from "@nestjs/platform-fastify";
 async function bootstrap() {
     const app = await NestFactory.create<NestFastifyApplication>(
         AppModule,
-        new FastifyAdapter(),
-        {cors: true}
+        new FastifyAdapter()
     )
-    app.enableCors()
+    app.enableCors({
+        origin: '*',
+    })
     app.setGlobalPrefix('api')
 
     const config = new DocumentBuilder()
