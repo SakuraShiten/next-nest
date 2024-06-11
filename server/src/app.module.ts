@@ -14,27 +14,35 @@ import {Texts} from "@/models/elements/models/texts.model";
 import {APP_GUARD} from "@nestjs/core";
 import {RolesGuard} from "@/common/guards/roles.guard";
 import {Headers} from "@/models/elements/models/headers.model";
+import {ConfigModule} from "@nestjs/config";
+import databaseConfig from "@/common/config/database.config";
+import jwtConfig from "@/common/config/jwt.config";
 
 @Module({
     imports: [
-        JwtModule.register({
-            secret: 'myKey',
-            global: true,
-            signOptions: {expiresIn: '30d'}
+        ConfigModule.forRoot({
+            isGlobal: true,
+            load: [databaseConfig, jwtConfig]
         }),
+
+        JwtModule.register({
+            global: true,
+            secret: process.env.JWT_SECRET
+        }),
+
         TypeOrmModule.forRoot({
             type: 'mysql',
-            host: 'localhost',
-            port: 3306,
-            username: 'root',
-            password: '',
-            database: 'test',
-            synchronize: true,
+            host: process.env.DATABASE_HOST,
+            port: +process.env.DATABASE_PORT!,
+            username: process.env.DATABASE_USERNAME,
+            password: process.env.DATABASE_PASSWORD,
+            database: process.env.DATABASE_NAME,
             entities: [
                 Users, Roles, Pages, Elements, Headers, Texts
             ],
-            // dropSchema: true,
+            synchronize: true,
         }),
+
         UsersModule,
         PagesModule,
         ElementsModule,
