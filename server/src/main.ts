@@ -2,16 +2,18 @@ import {NestFactory} from '@nestjs/core';
 import {AppModule} from './app.module';
 import {DocumentBuilder, SwaggerModule} from "@nestjs/swagger";
 import {FastifyAdapter, NestFastifyApplication} from "@nestjs/platform-fastify";
-import fastifyCors from '@fastify/cors';
+import helmet from 'helmet';
 
 async function bootstrap() {
     const app = await NestFactory.create<NestFastifyApplication>(
         AppModule,
-        new FastifyAdapter()
+        new FastifyAdapter(),
+        {cors: true}
     )
 
-    app.setGlobalPrefix('api')
 
+    app.setGlobalPrefix('api')
+    app.use(helmet())
     const config = new DocumentBuilder()
         .addSecurity('bearer', {type: 'http', scheme: 'bearer'})
         .build()
@@ -19,13 +21,8 @@ async function bootstrap() {
     const document = SwaggerModule.createDocument(app, config)
     SwaggerModule.setup('openapi', app, document)
 
-    await app.register(fastifyCors, {
-        origin: true,
-        methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS'],
-    });
 
-
-    await app.listen(5000)
+    await app.listen(5000, '0.0.0.0')
     console.log(`Application is running on: ${await app.getUrl()}`)
 }
 
