@@ -11,6 +11,11 @@ services:
       - "5000:5000"
     networks:
       - my_network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.<unique_router_name>.rule=Host(`coolify.io`) && PathPrefix(`/`)"
+      - "traefik.http.routers.<unique_router_name>.entryPoints=http"
+
 
 networks:
   my_network:
