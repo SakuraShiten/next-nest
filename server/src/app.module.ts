@@ -24,10 +24,10 @@ import {Headers} from "@/models/elements/models/headers.model";
         }),
         TypeOrmModule.forRoot({
             type: 'mysql',
-            host: '185.84.162.193',
-            port: 5432,
+            host: 'localhost',
+            port: 3306,
             username: 'root',
-            password: '86HE1CA2BWGYCPeiB37I0E5mtWxUPBzXJkELy02e6F6Zqqmw23z1ryTInEQweUjj',
+            password: '',
             database: 'test',
             synchronize: true,
             entities: [
