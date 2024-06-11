@@ -8,13 +8,7 @@ async function bootstrap() {
         AppModule,
         new FastifyAdapter()
     )
-    app.enableCors({
-        origin: '*',
-        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-        preflightContinue: false,
-        optionsSuccessStatus: 204,
-        allowedHeaders: '*',
-    })
+
     app.setGlobalPrefix('api')
 
     const config = new DocumentBuilder()
@@ -23,6 +17,18 @@ async function bootstrap() {
 
     const document = SwaggerModule.createDocument(app, config)
     SwaggerModule.setup('openapi', app, document)
+
+    app.enableCors({
+        origin: '*',
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+        preflightContinue: false,
+        optionsSuccessStatus: 204,
+        allowedHeaders: '*',
+        exposedHeaders: '*',
+        credentials: true
+    })
+
+
 
     await app.listen(5000)
     console.log(`Application is running on: ${await app.getUrl()}`)
