@@ -2,7 +2,7 @@ import {NestFactory} from '@nestjs/core';
 import {AppModule} from './app.module';
 import {DocumentBuilder, SwaggerModule} from "@nestjs/swagger";
 import {FastifyAdapter, NestFastifyApplication} from "@nestjs/platform-fastify";
-import helmet from 'helmet';
+import helmet from '@fastify/helmet'
 
 async function bootstrap() {
     const app = await NestFactory.create<NestFastifyApplication>(
@@ -13,7 +13,7 @@ async function bootstrap() {
 
 
     app.setGlobalPrefix('api')
-    app.use(helmet())
+    await app.register(helmet)
     const config = new DocumentBuilder()
         .addSecurity('bearer', {type: 'http', scheme: 'bearer'})
         .build()
