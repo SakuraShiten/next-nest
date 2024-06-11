@@ -8,9 +8,9 @@ services:
       dockerfile: Dockerfile
     restart: always
     ports:
-      - "5001:5001"
+      - "5001"
     networks:
-      - coolify
+      - my_network
 
 networks:
   my_network:
