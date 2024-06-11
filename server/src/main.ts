@@ -10,12 +10,13 @@ async function bootstrap() {
         new FastifyAdapter()
     )
 
-
     app.setGlobalPrefix('api')
-    await app.register(cors,{
+
+    await app.register(cors, {
         origin: '*',
         methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS'],
     })
+
     const config = new DocumentBuilder()
         .addSecurity('bearer', {type: 'http', scheme: 'bearer'})
         .build()
