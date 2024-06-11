@@ -1,6 +1,6 @@
-import {Injectable, NestMiddleware, UnauthorizedException} from "@nestjs/common";
+import {Injectable, NestMiddleware, RequestMethod, UnauthorizedException} from "@nestjs/common";
 import {JwtService} from "@nestjs/jwt";
-import {FastifyRequest, FastifyReply} from 'fastify'
+import {FastifyReply, FastifyRequest} from 'fastify'
 import {UsersService} from "@/models/user/users.service";
 
 @Injectable()
@@ -26,3 +26,10 @@ export class AuthMiddleware implements NestMiddleware {
         next()
     }
 }
+
+export const excludeConfig = [
+    {path: '/users/registration', method: RequestMethod.POST},
+    {path: '/users/auth', method: RequestMethod.POST},
+    {path: '/pages/:userLogin/:pageUrl', method: RequestMethod.GET},
+    {path: '/pages/health', method: RequestMethod.GET}
+]
