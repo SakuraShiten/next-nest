@@ -13,10 +13,7 @@ async function bootstrap() {
 
     app.setGlobalPrefix('api')
     await app.register(cors,{
-        origin: (origin, cb) => {
-            if (!origin) return cb(null, true);
-            cb(null, true);
-        },
+        origin: '*',
         methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS'],
     })
     const config = new DocumentBuilder()
