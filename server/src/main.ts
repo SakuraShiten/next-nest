@@ -8,16 +8,8 @@ async function bootstrap() {
         AppModule,
         new FastifyAdapter()
     )
-    await app.register(require('fastify-cors'), {
-        origin: true,
-        allowedHeaders: [
-            'Origin',
-            'X-Requested-With',
-            'Accept',
-            'Content-Type',
-            'Authorization'
-        ],
-        methods: ['GET', 'PUT', 'OPTIONS', 'POST', 'DELETE'],
+    app.enableCors({
+        origin: ['*']
     })
     app.setGlobalPrefix('api')
 
