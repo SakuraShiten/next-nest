@@ -29,7 +29,10 @@ export default function UIDrawer(
             variant={'outline'}
             asChild={true}
             {...buttonProps}
-        ><DrawerTrigger>{text}</DrawerTrigger></Button>
+        >
+            <DrawerTrigger>{text}</DrawerTrigger>
+        </Button>
+
         <DrawerContent>
             {title ? <DrawerHeader>
                 <DrawerTitle>{title}</DrawerTitle>
