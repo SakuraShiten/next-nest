@@ -10,10 +10,7 @@ const queryKey = ['state', 'alertDelete']
 const useQueryAlert = () => useQuery<{ show: boolean, onDelete: (() => void) | null }>({
     queryKey: queryKey,
     retry: false,
-    initialData: {
-        show: false,
-        onDelete: null
-    },
+    initialData: {show: false, onDelete: null},
     retryOnMount: false,
     retryDelay: 0,
     gcTime: Infinity,

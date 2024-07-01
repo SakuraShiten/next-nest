@@ -1,7 +1,6 @@
 import {MiddlewareConsumer, Module, NestModule} from '@nestjs/common';
 import {AuthMiddleware, excludeConfig} from "@/common/middlewares/auth.middleware";
 import {JwtModule} from "@nestjs/jwt";
-import {UsersModule} from "@/models/user/users.module";
 import {TypeOrmModule} from "@nestjs/typeorm";
 import {PagesModule} from "@/models/pages/pages.module";
 import {ElementsModule} from "@/models/elements/elements.module";
@@ -17,6 +16,7 @@ import {Headers} from "@/models/elements/models/headers.model";
 import {ConfigModule} from "@nestjs/config";
 import databaseConfig from "@/common/config/database.config";
 import jwtConfig from "@/common/config/jwt.config";
+import {UsersModule} from "@/models/user/users.module";
 
 @Module({
     imports: [
@@ -40,7 +40,7 @@ import jwtConfig from "@/common/config/jwt.config";
             entities: [
                 Users, Roles, Pages, Elements, Headers, Texts
             ],
-            synchronize: true,
+            synchronize: true
         }),
 
         UsersModule,
